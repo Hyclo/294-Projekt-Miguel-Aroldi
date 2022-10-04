@@ -64,7 +64,28 @@ function displayTasks(tasks) {
   }
 }
 
-function addTask(){
-    window.location.href = 
+function validate(document) {
+    const mailRegex = "\\S{1,}@\\S{1,}\\.\\S{2,4}";
+    if (document.id == "eMail") {
+      if (document.value.match(mailRegex)) {
+        return true;
+      }
+      alert("please enter valid E-Mail");
+      return false;
+    }
+  
+    if (
+      document.value == null ||
+      document.value == undefined ||
+      document.value == NaN ||
+      document.value == ""
+    ) {
+      alert("Please enter a valid value!");
+      return false;
+    }
+    return true;
+  }
 
+function addTask(){
+    window.location.href = "addTask.html"
 }
