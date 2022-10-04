@@ -28,13 +28,23 @@ function displayTasks(tasks) {
 
     const titleDiv = document.createElement("div");
 
-    const buttonDiv = document.createElement("div");
-    buttonDiv.classList.add("container");
-
     const title = document.createElement("h3");
     title.innerText = `${task.id} ${task.title}`;
     title.classList.add("normalText");
     titleDiv.append(title);
+
+    const buttonDiv = document.createElement("div");
+    buttonDiv.classList.add("container");
+
+    const buttonContainer  = document.createElement("div");
+    buttonContainer.classList.add("container");
+
+    const delDiv = document.createElement("div");
+    delDiv.classList.add("inline");
+    const alterDiv = document.createElement("div");
+    alterDiv.classList.add("inline");
+    const radioDiv = document.createElement("div");
+    radioDiv.classList.add("inline");
 
     const radioButton = document.createElement("input");
     radioButton.type = "radio";
@@ -60,17 +70,12 @@ function displayTasks(tasks) {
       redirectTask(task.id);
     };
 
-    const delDiv = document.createElement("div");
-    delDiv.classList.add("inline");
-    const alterDiv = document.createElement("div");
-    alterDiv.classList.add("inline");
-    const radioDiv = document.createElement("div");
-    radioDiv.classList.add("inline");
     delDiv.append(deleteButton);
     alterDiv.append(alterButton);
     radioDiv.append(radioButton);
 
-    buttonDiv.append(radioDiv, delDiv, alterDiv);
+    buttonContainer.append(radioDiv, delDiv, alterDiv);
+    buttonDiv.append(buttonContainer);
     taskDiv.append(titleDiv, buttonDiv);
 
     if (task.completed == false) {
