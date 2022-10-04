@@ -36,7 +36,7 @@ function displayTasks(tasks) {
     const buttonDiv = document.createElement("div");
     buttonDiv.classList.add("container");
 
-    const buttonContainer  = document.createElement("div");
+    const buttonContainer = document.createElement("div");
     buttonContainer.classList.add("container");
 
     const delDiv = document.createElement("div");
