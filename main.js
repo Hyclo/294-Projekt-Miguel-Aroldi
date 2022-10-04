@@ -6,8 +6,10 @@ fetch("http://localhost:3000/tasks")
   })
   .then(function (json) {
     tasks = json;
-    let currentSite = window.location.href.split("/294%20Projekt%20Miguel%20Aroldi/Fontend/")[1]
-    if (currentSite  == "index.html") {
+    let currentSite = window.location.href.split(
+      "/294%20Projekt%20Miguel%20Aroldi/Fontend/"
+    )[1];
+    if (currentSite == "index.html") {
       displayTasks(tasks);
     }
   });
@@ -201,7 +203,16 @@ function submitLogin() {
     $;
     document.cookie = "email =" + emailForm.value + ";" + expires + ";path=/";
 
-
-    
+    fetch("http://localhost:3000/tasks", {
+      credentials: "include",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    }).then(function () {
+      window.location.href = "index.html";
+      loadDataFromBackend();
+    });
   }
 }
