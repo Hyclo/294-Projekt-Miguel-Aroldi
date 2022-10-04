@@ -6,7 +6,13 @@ fetch("http://localhost:3000/tasks")
   })
   .then(function (json) {
     tasks = json;
-    displayTasks(tasks);
+    if (
+      window.location.href.split(
+        "/294%20Projekt%20Miguel%20Aroldi/Fontend/"
+      )[1] == "index.html"
+    ) {
+      displayTasks(tasks);
+    }
   });
 
 function displayTasks(tasks) {
@@ -28,23 +34,26 @@ function displayTasks(tasks) {
 
     const title = document.createElement("h3");
     title.innerText = `${task.id} ${task.title}`;
-    title.classList.add("normaltext");
+    title.classList.add("normalText");
     titleDiv.append(title);
 
     const radioButton = document.createElement("input");
     radioButton.type = "radio";
 
     const deleteButton = document.createElement("button");
-    deleteButton.innerText = "Del";
+    deleteButton.innerText = "Delete";
     deleteButton.classList.add("button");
     deleteButton.onclick = () => {
-		deleteTask(task.id);
-        displayTasks(tasks)
-	}
+      deleteTask(task.id);
+      displayTasks(tasks);
+    };
 
     const alterButton = document.createElement("button");
-    alterButton.innerText = "Alter";
+    alterButton.innerText = "Edit";
     alterButton.classList.add("button");
+    alterButton.onclick = () => {
+      redirectTask(task.id);
+    };
 
     const delDiv = document.createElement("div");
     delDiv.classList.add("inline");
@@ -90,18 +99,18 @@ function validate(document) {
 }
 
 function loadDataFromBackend() {
-	fetch("http://localhost:3000/contacts").then(function (data) {
-		return data.json()
-	}).then(function (json) {
-		tasks = json
-		displayTasks(tasks)
-	})
+  fetch("http://localhost:3000/tasks")
+    .then(function (data) {
+      return data.json();
+    })
+    .then(function (json) {
+      tasks = json;
+      displayTasks(tasks);
+    });
 }
 
 function addTask() {
   const todoForm = document.getElementById("addTodo");
-  const todoTitle = document.getElementById("TodoTitleTask");
-  todoTitle.innerText = "ADD TODO";
 
   validate(todoForm);
 
@@ -114,20 +123,47 @@ function addTask() {
   fetch("http://localhost:3000/tasks", {
     method: "POST",
     headers: {
-        'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(body)
+    body: JSON.stringify(body),
   }).then(function () {
     window.location.href = "index.html";
-    loadDataFromBackend()
-});
+    loadDataFromBackend();
+  });
 }
 
-function deleteTask(id){
-    fetch(`http://localhost:3000/task/${id}`, {
-        method: "DELETE",
-      }).then(function () {
-        window.location.href = "index.html";
-        loadDataFromBackend()
+function deleteTask(id) {
+  fetch(`http://localhost:3000/task/${id}`, {
+    method: "DELETE",
+  }).then(function () {
+    loadDataFromBackend();
+  });
+}
+
+function alterTask() {
+    const id = location.hash.split("#")[1]
+    const todoForm = document.getElementById("alterTodo");
+  
+    validate(todoForm);
+  
+    const body = {
+      id: id,
+      completed: false,
+      title: todoForm.value,
+    };
+  
+    fetch("http://localhost:3000/tasks", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    }).then(function () {
+      window.location.href = "index.html";
+      loadDataFromBackend();
     });
+}
+
+function redirectTask(id) {
+  window.location.href = `alterTask.html#${id}`;
 }

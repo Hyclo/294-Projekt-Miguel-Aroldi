@@ -13,7 +13,7 @@
     <section class="header">
       <div class="container" id="headerContainer">
         <div class="inline">
-          <p class="headerTitle" id="TodoTitleTask"></p>
+          <p class="headerTitle" id="TodoTitleTask">ALTER TODO</p>
         </div>
       </div>
     </section>
@@ -23,19 +23,37 @@
         <form id="personForm">
           <div class="container">
             <div class="inline">
-              <label class="normalText" for="addTodo">Todo</label>
-              <input type="text" name="addTodo" id="addTodo" />
+              <label class="normalText" for="alterTodo">Todo</label>
+              <input type="text" name="alterTodo" id="alterTodo" />
             </div>
           <button
             id="submitAdress"
             class="button"
             type="button"
-            onclick="addTask()"
+            onclick="alterTask()"
           >
             submit
           </button>
         </form>
       </div>
     </section>
+    <script defer>
+      const id = location.hash.split("#")[1]
+      let inputForm = document.getElementById("alterTodo");
+
+      console.log(inputForm);
+      let task = {};
+
+      let data = fetch(`http://localhost:3000/task/${id}`)
+        .then(function (data) {
+          return data.json();
+        })
+        .then(function (json) {
+          task = json;
+        })
+        .then(function () {
+          inputForm.value = task.title;
+        });
+  </script>
   </body>
 </html>
