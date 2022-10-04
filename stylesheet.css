@@ -8,7 +8,7 @@ body.styled {
 .header {
   background: black;
   min-width: 100vw;
-  height: 5vh;
+  height: 7vh;
   text-align: center;
 }
 
@@ -53,6 +53,11 @@ div.inline {
   margin-right: 1vw;
 }
 
+.headerTitle {
+  color:white;
+  font-family: "Roboto Mono", monospace;
+}
+
 .title {
   color: black;
   margin-left: 0.5vw;
@@ -94,7 +99,7 @@ div.inline {
 
 .button {
   backface-visibility: hidden;
-  background-color: #000000;
+  background-color: dimgray;
   border-radius: 6px;
   border-width: 0;
   box-shadow: rgba(50, 50, 93, 0.1) 0 0 0 1px inset,
@@ -143,7 +148,7 @@ input[type='radio']:after {
   top: -2px;
   left: -1px;
   position: relative;
-  background-color: #d1d3d1;
+  background-color: red;
   content: '';
   display: inline-block;
   visibility: visible;
@@ -157,7 +162,7 @@ input[type='radio']:checked:after {
   top: -2px;
   left: -1px;
   position: relative;
-  background-color: darkslateblue;
+  background-color: green;
   content: '';
   display: inline-block;
   visibility: visible;
