@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script defer src="main.js"></script>
     <link rel="stylesheet" href="./stylesheet.css" />
-    <title>Todo List</title>
+    <title>Login</title>
   </head>
   <!-- Header -->
   <body class="styled">
     <section class="header">
       <div class="container" id="headerContainer">
         <div class="inline">
-          <p class="headerTitle" id="TodoTitleTask">ALTER TODO</p>
+          <p class="headerTitle" id="TodoTitleTask">ADD TODO</p>
         </div>
       </div>
     </section>
@@ -23,37 +23,23 @@
         <form id="personForm">
           <div class="container">
             <div class="inline">
-              <label class="normalText" for="alterTodo">Todo</label>
-              <input type="text" name="alterTodo" id="alterTodo" />
+              <label class="normalText" for="usernameInput">Username</label>
+              <input type="text" name="usernameInput" id="usernameInput" />
             </div>
+            <div class="inline">
+                <label class="normalText" for="eMail">E-Mail</label>
+                <input type="text" name="eMail" id="eMail" />
+              </div>
           <button
             id="submitAdress"
             class="button"
             type="button"
-            onclick="alterTask(location.hash.split('#')[1])"
+            onclick="submitLogin()"
           >
             submit
           </button>
         </form>
       </div>
     </section>
-    <script defer>
-      const id = location.hash.split("#")[1]
-      let inputForm = document.getElementById("alterTodo");
-
-      console.log(inputForm);
-      let task = {};
-
-      let data = fetch(`http://localhost:3000/task/${id}`)
-        .then(function (data) {
-          return data.json();
-        })
-        .then(function (json) {
-          task = json;
-        })
-        .then(function () {
-          inputForm.value = task.title;
-        });
-  </script>
   </body>
 </html>

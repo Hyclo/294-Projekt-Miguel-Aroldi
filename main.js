@@ -6,11 +6,8 @@ fetch("http://localhost:3000/tasks")
   })
   .then(function (json) {
     tasks = json;
-    if (
-      window.location.href.split(
-        "/294%20Projekt%20Miguel%20Aroldi/Fontend/"
-      )[1] == "index.html"
-    ) {
+    let currentSite = window.location.href.split("/294%20Projekt%20Miguel%20Aroldi/Fontend/")[1]
+    if (currentSite  == "index.html") {
       displayTasks(tasks);
     }
   });
@@ -39,6 +36,12 @@ function displayTasks(tasks) {
 
     const radioButton = document.createElement("input");
     radioButton.type = "radio";
+    radioButton.onclick = () => {
+      changeTaskCompletion(task);
+    };
+    if (task.completed == true) {
+      radioButton.checked = true;
+    }
 
     const deleteButton = document.createElement("button");
     deleteButton.innerText = "Delete";
@@ -140,30 +143,65 @@ function deleteTask(id) {
   });
 }
 
-function alterTask() {
-    const id = location.hash.split("#")[1]
-    const todoForm = document.getElementById("alterTodo");
-  
-    validate(todoForm);
-  
-    const body = {
-      id: id,
-      completed: false,
-      title: todoForm.value,
-    };
-  
-    fetch("http://localhost:3000/tasks", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    }).then(function () {
-      window.location.href = "index.html";
-      loadDataFromBackend();
-    });
+function alterTask(id) {
+  const todoForm = document.getElementById("alterTodo");
+
+  validate(todoForm);
+
+  const body = {
+    id: id,
+    completed: false,
+    title: todoForm.value,
+  };
+
+  fetch("http://localhost:3000/tasks", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  }).then(function () {
+    window.location.href = "index.html";
+    loadDataFromBackend();
+  });
+}
+
+function changeTaskCompletion(task) {
+  const body = {
+    id: task.id,
+    completed: true,
+    title: task.title,
+  };
+
+  fetch("http://localhost:3000/tasks", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  }).then(function () {
+    loadDataFromBackend();
+  });
 }
 
 function redirectTask(id) {
   window.location.href = `alterTask.html#${id}`;
+}
+
+function submitLogin() {
+  const usernameForm = document.getElementById("usernameInput");
+  const emailForm = document.getElementById("eMail");
+
+  if (validate(usernameForm) && validate(emailForm)) {
+    const d = new Date();
+    d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+    let expires = "expires=" + d.toUTCString();
+    document.cookie =
+      "username =" + usernameForm.value + ";" + expires + ";path=/";
+    $;
+    document.cookie = "email =" + emailForm.value + ";" + expires + ";path=/";
+
+
+    
+  }
 }

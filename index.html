@@ -19,7 +19,7 @@
           <p class="headerTitle">TODO LIST</p>
         </div>
         <div class="inline">
-            <button class="button">Login</button>
+            <button class="button" onclick="window.location.href = 'login.html'">Login</button>
         </div>
       </div>
     </section>
@@ -27,13 +27,19 @@
     <section id="bodyContainer">
       <div class="container">
         <!-- Container for Tasks -->
-        <div class="inline" id="openTasks">
+        <div class="inline; center">
             <!-- inline div for open Tasks -->
             <h2 class="title">Open Tasks</h2>
+            <div id="openTasks"  class="center">
+
+            </div>
         </div>
-        <div class="inline" id="closedTasks">
+        <div class="inline; center">
             <!-- inline div for closed Tasks -->
             <h2 class="title">Closed Tasks</h2>
+            <div id="closedTasks" class="center">
+
+            </div>
         </div>
       </div>
     </section>
